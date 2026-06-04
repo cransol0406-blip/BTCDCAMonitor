@@ -42,9 +42,9 @@ def build_message(
 ) -> str:
     return "\n".join(
         [
-            "btc定投指标监控",
+            "【BTC定投指标监控】",
             "",
-            f"监控时间：{monitor_time}",
+            f"时间：{monitor_time}",
             _line("BTC价格", metrics["btc_price"]),
             _line("AHR999指数", metrics["ahr999"]),
             _line("MVRV Z-Score", metrics["mvrv_zscore"]),

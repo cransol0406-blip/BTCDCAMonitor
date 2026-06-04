@@ -34,8 +34,8 @@ def test_format_number():
 
 def test_build_message_standard_format():
     message = build_message("2026-06-04 18:30:00", _sample_metrics(), _sample_statuses(), "普通定投，不触发加倍；等待 AHR999 < 0.45、MVRV < 1 或价格接近200周均线时再提高定投金额。")
-    assert message.startswith("btc定投指标监控\n\n")
-    assert "监控时间：2026-06-04 18:30:00" in message
+    assert message.startswith("【BTC定投指标监控】\n\n")
+    assert "时间：2026-06-04 18:30:00" in message
     assert "BTC价格：$68,500.00" in message
     assert "AHR999指数：0.92" in message
     assert "MVRV Z-Score：1.15" in message
