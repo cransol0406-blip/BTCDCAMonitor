@@ -2,7 +2,7 @@ name: BTC_DCA_Indicator_Monitor
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2-59/5 * * * *"
   workflow_dispatch:
 
 permissions:
