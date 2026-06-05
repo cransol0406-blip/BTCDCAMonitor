@@ -30,8 +30,8 @@ def _timezone(name: str) -> ZoneInfo:
         return ZoneInfo("Asia/Shanghai")
 
 
-def _metric(value: float | None, used_cache: bool = False, is_money: bool = False) -> DisplayMetric:
-    return DisplayMetric(value=value, used_cache=used_cache, is_money=is_money)
+def _metric(value: float | None, used_cache: bool = False, is_money: bool = False, decimals: int = 2) -> DisplayMetric:
+    return DisplayMetric(value=value, used_cache=used_cache, is_money=is_money, decimals=decimals)
 
 
 def run() -> None:
@@ -174,7 +174,7 @@ def run() -> None:
         monitor_time=now.strftime("%Y-%m-%d %H:%M:%S"),
         metrics={
             "btc_price": _metric(values["btc_price"], used_cache["btc_price"], True),
-            "ahr999": _metric(values["ahr999"], used_cache["ahr999"], False),
+            "ahr999": _metric(values["ahr999"], used_cache["ahr999"], False, 4),
             "mvrv_zscore": _metric(values["mvrv_zscore"], used_cache["mvrv_zscore"], False),
             "mvrv": _metric(values["mvrv"], used_cache["mvrv"], False),
             "ma_200w": _metric(values["ma_200w"], used_cache["ma_200w"], True),

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import Decimal, ROUND_HALF_UP
 
 
 FAIL_TEXT = "获取失败"
@@ -13,13 +14,16 @@ class DisplayMetric:
     value: float | None
     used_cache: bool = False
     is_money: bool = False
+    decimals: int = 2
 
 
-def format_number(value: float | None, used_cache: bool = False) -> str:
+def format_number(value: float | None, used_cache: bool = False, decimals: int = 2) -> str:
     if value is None:
         return FAIL_TEXT
     suffix = "（使用缓存）" if used_cache else ""
-    return f"{value:,.2f}{suffix}"
+    quantizer = Decimal("1").scaleb(-decimals)
+    rounded = Decimal(str(value)).quantize(quantizer, rounding=ROUND_HALF_UP)
+    return f"{rounded:,.{decimals}f}{suffix}"
 
 
 def format_money(value: float | None, used_cache: bool = False) -> str:
@@ -30,7 +34,11 @@ def format_money(value: float | None, used_cache: bool = False) -> str:
 
 
 def _line(label: str, metric: DisplayMetric) -> str:
-    formatted = format_money(metric.value, metric.used_cache) if metric.is_money else format_number(metric.value, metric.used_cache)
+    formatted = (
+        format_money(metric.value, metric.used_cache)
+        if metric.is_money
+        else format_number(metric.value, metric.used_cache, metric.decimals)
+    )
     return f"{label}：{formatted}"
 
 

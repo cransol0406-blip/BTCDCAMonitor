@@ -4,7 +4,7 @@ from src.message import DisplayMetric, build_message, format_money, format_numbe
 def _sample_metrics():
     return {
         "btc_price": DisplayMetric(68500.0, is_money=True),
-        "ahr999": DisplayMetric(0.92),
+        "ahr999": DisplayMetric(0.92345, decimals=4),
         "mvrv_zscore": DisplayMetric(1.15),
         "mvrv": DisplayMetric(1.82),
         "ma_200w": DisplayMetric(43200.0, is_money=True),
@@ -28,6 +28,7 @@ def test_format_money():
 
 def test_format_number():
     assert format_number(1.15) == "1.15"
+    assert format_number(0.92345, decimals=4) == "0.9235"
     assert format_number(-0.15) == "-0.15"
     assert format_number(None) == "获取失败"
 
@@ -37,7 +38,7 @@ def test_build_message_standard_format():
     assert message.startswith("【BTC定投指标监控】\n\n")
     assert "时间：2026-06-04 18:30:00" in message
     assert "BTC价格：$68,500.00" in message
-    assert "AHR999指数：0.92" in message
+    assert "AHR999指数：0.9235" in message
     assert "MVRV Z-Score：1.15" in message
     assert "MVRV：1.82" in message
     assert "200周均线：$43,200.00" in message
